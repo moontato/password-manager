@@ -21,14 +21,6 @@ function App() {
     setPassword(password_input)
   }
 
-  // const refreshPage = () => {
-  //   window.location.reload();
-  // }
-
-  useEffect(() => {
-    console.log(password)
-  }, [password])
-
   return (
     <div className="App">
       {/* only render login box if loginState is false */}

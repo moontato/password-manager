@@ -53,7 +53,7 @@ function AccountsGrid(props) {
 
     const mapAccounts = (accounts_array) => {
         if(accounts_array != null){
-            return(accounts_array.map(acc => <Col xs={6} md={3}><CredentialCard key={acc.account_title} title={acc.account_title} name={acc.account_name} password={acc.account_password}></CredentialCard></Col>));
+            return(accounts_array.map(acc => <Col key={acc.account_title} xs={6} md={3}><CredentialCard title={acc.account_title} name={acc.account_name} password={acc.account_password}></CredentialCard></Col>));
         }
     }
 

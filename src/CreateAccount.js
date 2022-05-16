@@ -3,7 +3,7 @@ import { Alert, Button, InputGroup, Form, FormControl } from  'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import sha256 from 'crypto-js/sha256';
 
-function CreateAccount() {
+function CreateAccount(props) {
     // references to get input from text input fields
     let usernameInput = createRef();
     let passwordInput = createRef();
@@ -27,15 +27,15 @@ function CreateAccount() {
         if(attemptedSignUp && savedAccounts == undefined){
             savedAccounts = `[{"username":"${username}","password":"${password}"}]`
             localStorage.setItem('accounts', savedAccounts);
+            props.updateList(username)
         }
         // if there are accounts saved, check for duplicates then add
         else if(attemptedSignUp && !savedAccounts.includes(`"username":"${username}"`)){
-            console.log(true)
-            console.log(savedAccounts)
             savedAccounts = savedAccounts.replace("]","");
             savedAccounts = `${savedAccounts},{"username":"${username}","password":"${password}"}]`
             localStorage.setItem('accounts', savedAccounts)
-            window.location.reload();
+            props.updateList(username)
+            // window.location.reload();
         }
         else{
             console.log(false)

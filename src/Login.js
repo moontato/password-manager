@@ -26,12 +26,13 @@ function Login(props) {
     const [createAccount, setCreateAccount] = useState(false);
 
     const [savedAccounts, setSavedAccounts] = useState(JSON.parse(localStorage.getItem('accounts')));
+    const [usernameState, setUsernameState] = useState(null);
     const [username, setUsername] = useState("Select Account");
     const [password, setPassword] = useState();
+    const [defaultValue, setDefaultValue] = useState("no accounts");
     // const [unencryptedPassword, setUnencryptedPassword] = useState();
 
     const handleLogin = () => {
-        console.log("loginState: " + loginState)
         // parsing string of saved accounts array
         setSavedAccounts(JSON.parse(localStorage.getItem('accounts')));
         // set inputted password state
@@ -54,8 +55,12 @@ function Login(props) {
         setUsername(e.split("#/")[1]);
     }
 
+    const updateList = (username_input) => {
+        setUsernameState(username_input);
+    }
+
     const authentication = () => {
-        if(attemptedLogin){
+        if(attemptedLogin && username != defaultValue){
             let flag = false;
             for(let currentAccount = 0; currentAccount < savedAccounts.length; currentAccount++){
                 if(username != "Select Account" && ((username == savedAccounts[currentAccount].username) && (password == savedAccounts[currentAccount].password))){
@@ -67,14 +72,17 @@ function Login(props) {
                 }
             }
             if(!flag){
-                window.alert('incorrect username/password!');
+                window.alert("Incorrect username/password!");
             }
+        }
+        else if(attemptedLogin && username == defaultValue){
+            window.alert("No saved accounts to list. Create a new account?")
         }
     }
 
     useEffect(()=>{
         authentication()
-    }, [password])
+    }, [usernameState, password])
 
     return (
         <div>
@@ -85,7 +93,7 @@ function Login(props) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu variant="dark">
-                    <ListAccounts></ListAccounts>
+                    <ListAccounts usernameState={usernameState}></ListAccounts>
                 </Dropdown.Menu>
             </Dropdown>
                 <fieldset>
@@ -99,7 +107,7 @@ function Login(props) {
                     <Button onClick={handleCreateAccount}>Create Account</Button>
                     </fieldset>
             </Alert>
-            {createAccount? <CreateAccount></CreateAccount>: null}
+            {createAccount? <CreateAccount updateList={updateList}></CreateAccount>: null}
         </div>
     )
 }

@@ -36,7 +36,7 @@ function CredentialCard(props) {
 
   return (
     // style={{minWidth:"350px", maxWidth:"350px"}}
-    <div className="card">
+    <div className="card" style={{marginBottom: "5%"}}>
       <div className="card-header">
         {props.title}
       </div>

@@ -25,7 +25,6 @@ function AddCredentials(props) {
         setUsername(usernameInput.current.value);
         setPassword(passwordInput.current.value);
         setAccountTitle(accountTitleInput.current.value);
-        // console.log(storedDataObject);
     }
 
     // try to find where current user's object (data) is located
@@ -50,8 +49,6 @@ function AddCredentials(props) {
             }
             // if there are no saved accounts
             if(user_position != null && (dataContents == undefined || dataContents.indexOf("[") < 0)){
-                console.log('first if')
-
                 fetchedDataObject.data = encrypt(`[{"account_title":"${accountTitle}","account_name":"${username}","account_password":"${password}"}]`, props.password);
                 stored_data_object[userPosition] = fetchedDataObject;
                 localStorage.setItem('accounts', JSON.stringify(stored_data_object))
@@ -59,8 +56,6 @@ function AddCredentials(props) {
             }
             // if there are saved accounts
             else if(dataContents.indexOf("]") > 0){
-                console.log('second if')
-
                 fetchedDataObject.data = decrypt(fetchedDataObject.data, props.password);
                 fetchedDataObject.data = fetchedDataObject.data.replace("]", `,{"account_title":"${accountTitle}","account_name":"${username}","account_password":"${password}"}]`)
                 fetchedDataObject.data = encrypt(fetchedDataObject.data, props.password)

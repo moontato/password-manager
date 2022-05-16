@@ -29,7 +29,7 @@ function CredentialsComponent(props) {
 
     return (
         <Alert>
-            <Button onClick={handleAddCredentials}>Add Account</Button>
+            <Button onClick={handleAddCredentials} style={{marginBottom: "2%"}}>Add Account</Button>
             {addCredentials? <AddCredentials currentUser={props.currentUser} refreshAccounts={refreshAccounts} password={props.password}/>: null}
             <AccountsGrid storedDataObject={storedDataObject} password={props.password}></AccountsGrid>
         </Alert>
