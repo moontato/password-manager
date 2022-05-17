@@ -3,8 +3,6 @@ import CreateAccount from './CreateAccount';
 import { Alert, Button, Dropdown, Form, FormControl } from  'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import sha256 from 'crypto-js/sha256';
-import sha512 from 'crypto-js/sha512';
-import sha3 from 'crypto-js/sha3';
 
 import ListAccounts from './ListAccounts';
 

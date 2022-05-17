@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Button} from  'react-bootstrap';
+import { Button, Col, Row} from  'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AiFillDelete } from "react-icons/ai";
+
+// AiFillDelete
 
 function CredentialCard(props) {
 
@@ -8,6 +11,8 @@ function CredentialCard(props) {
   const [password, setPassword] = useState();
   const [buttonText, setButtonText] = useState("show password");
   const [visible, setVisible] = useState(false);
+  const [savedAccounts, setSavedAccounts] = useState(props.savedAccounts);
+  const [position, setPosition] = useState(props.position);
 
   const handleClick = () => {
     setName(props.name);
@@ -19,6 +24,12 @@ function CredentialCard(props) {
     else{
       setVisible(true);
     }
+  }
+
+  const deleteButton = () => {
+    props.deleteCredentials(props.position)
+    // console.log(savedAccounts[position])
+    // console.log(props.position)
   }
 
   useEffect(()=>{
@@ -43,7 +54,17 @@ function CredentialCard(props) {
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
         <p className="card-text">{password}</p>
-        <Button onClick={handleClick}>{buttonText}</Button>
+        <Row>
+          <Col sm={5} md={8}>
+            <Button onClick={handleClick}>{buttonText}</Button>
+          </Col>
+          <Col md={2}>
+            {/* delete credential button */}
+            <Button variant="danger">
+              <AiFillDelete onClick={deleteButton}/>
+            </Button>
+          </Col>
+        </Row>
       </div>
     </div>
   )
