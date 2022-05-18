@@ -70,14 +70,14 @@ function AddCredentials(props) {
         }
     }
 
-    const decrypt = (ciphertext, key) => {
-        let output = CryptoJS.AES.decrypt(ciphertext, key)
-        output = CryptoJS.enc.Utf8.stringify(output);
+    const encrypt = (text, key) => {
+        let output = CryptoJS.AES.encrypt(text, key).toString()
         return output;
     }
 
-    const encrypt = (text, key) => {
-        let output = CryptoJS.AES.encrypt(text, key).toString()
+    const decrypt = (ciphertext, key) => {
+        let output = CryptoJS.AES.decrypt(ciphertext, key)
+        output = CryptoJS.enc.Utf8.stringify(output);
         return output;
     }
 

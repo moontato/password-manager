@@ -16,8 +16,14 @@ function AccountsGrid(props) {
         for(let i = 0; i < storedDataObject.length; i++){
             if(storedDataObject[i]["username"] == sessionStorage.getItem('currentUser')){
                 setUserPosition(i);
+                props.fetchUserPosition(i);
             }
         }
+    }
+
+    const encrypt = (text, key) => {
+        let output = CryptoJS.AES.encrypt(text, key).toString()
+        return output;
     }
 
     const decrypt = (ciphertext, key) => {
@@ -28,7 +34,12 @@ function AccountsGrid(props) {
 
     // For every object in array, make a card for it in the DOM
     useEffect(()=>{
-        console.log('run')
+
+        if(storedDataObject == null){
+            setStoredDataObject(props.storedDataObject)
+        }
+        console.log(props.storedDataObject)
+        console.log(storedDataObject)
         let dataExists = false;
 
         findCurrentUser();
@@ -50,6 +61,10 @@ function AccountsGrid(props) {
             // clear sessionStorage so that password cannot be retrieved after cards are loaded
             // sessionStorage.clear()
         }
+        if(savedAccounts != null){
+            console.log(savedAccounts)
+            // props.refreshAccounts(encrypt(JSON.stringify(savedAccounts), password))
+        }
     }, [storedDataObject, userPosition, decryptedData, savedAccounts])
 
     const mapAccounts = (accounts_array) => {
@@ -69,13 +84,12 @@ function AccountsGrid(props) {
     
 
     const deleteCredentials = (position) => {
-        console.log(position)
         let modifiedAccounts = savedAccounts;
         savedAccounts.splice(position, 1)
         setSavedAccounts(modifiedAccounts);
-        // console.log(savedAccounts)
         console.log(modifiedAccounts)
-        props.refreshAccounts(modifiedAccounts)
+        // console.log(encrypt(JSON.stringify(modifiedAccounts), password))
+        props.refreshAccounts(encrypt(JSON.stringify(modifiedAccounts), password))
         // console.log(savedAccounts[position])
     }
 

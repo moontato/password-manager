@@ -21,6 +21,10 @@ function App() {
     setPassword(password_input)
   }
 
+  useEffect(()=>{
+    console.log(currentUser)
+  })
+
   return (
     <div className="App">
       {/* only render login box if loginState is false */}
