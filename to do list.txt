@@ -1,3 +1,0 @@
-work on deleting accounts,
-    do we send the updated object to credentials component and update the stored data in there?
-    or should we delete and update the stored data within accountsgrid?

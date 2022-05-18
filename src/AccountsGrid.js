@@ -28,7 +28,6 @@ function AccountsGrid(props) {
 
     // For every object in array, make a card for it in the DOM
     useEffect(()=>{
-        console.log('run')
         let dataExists = false;
 
         findCurrentUser();
@@ -53,9 +52,8 @@ function AccountsGrid(props) {
     }, [storedDataObject, userPosition, decryptedData, savedAccounts])
 
     const mapAccounts = (accounts_array) => {
-        let index_position = 0;
         if(accounts_array != null){
-            return(accounts_array.map(acc => <Col key={acc.account_title} xs={6} md={3}><CredentialCard position={index_position++} title={acc.account_title} name={acc.account_name} password={acc.account_password} deleteCredentials={deleteCredentials}></CredentialCard></Col>));
+            return(accounts_array.map(acc => <Col key={acc.account_title} xs={6} md={3}><CredentialCard title={acc.account_title} name={acc.account_name} password={acc.account_password}></CredentialCard></Col>));
         }
     }
 
@@ -63,20 +61,6 @@ function AccountsGrid(props) {
         if(props.storedDataObject != storedDataObject){
             setStoredDataObject(props.storedDataObject)
         }
-        // console.log(props.storedDataObject)
-    }
-
-    
-
-    const deleteCredentials = (position) => {
-        console.log(position)
-        let modifiedAccounts = savedAccounts;
-        savedAccounts.splice(position, 1)
-        setSavedAccounts(modifiedAccounts);
-        // console.log(savedAccounts)
-        console.log(modifiedAccounts)
-        props.refreshAccounts(modifiedAccounts)
-        // console.log(savedAccounts[position])
     }
 
     return (
